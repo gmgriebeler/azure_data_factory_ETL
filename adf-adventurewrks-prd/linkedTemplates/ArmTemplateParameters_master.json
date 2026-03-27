@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-adventurewrks-prd"
+		},
+		"AD_lakehouse_server_password": {
+			"value": ""
+		},
+		"AD_lakehouse_sqldb_password": {
+			"value": ""
+		},
+		"adls_landing_zone_accountKey": {
+			"value": ""
+		},
+		"ls_onpremise_adventureworks_dw_password": {
+			"value": ""
+		},
+		"AD_lakehouse_server_properties_typeProperties_server": {
+			"value": "sqldb-study-lakehouse-server.database.windows.net"
+		},
+		"AD_lakehouse_server_properties_typeProperties_database": {
+			"value": "AdventureWorks2022"
+		},
+		"AD_lakehouse_server_properties_typeProperties_userName": {
+			"value": "APRENDER_DADOS_READ"
+		},
+		"AD_lakehouse_sqldb_properties_typeProperties_server": {
+			"value": "sqldb-study-lakehouse-server.database.windows.net"
+		},
+		"AD_lakehouse_sqldb_properties_typeProperties_database": {
+			"value": "AdventureWorks2022"
+		},
+		"AD_lakehouse_sqldb_properties_typeProperties_userName": {
+			"value": "APRENDER_DADOS_READ"
+		},
+		"adls_landing_zone_properties_typeProperties_url": {
+			"value": "https://adlsadventurewrksprd.dfs.core.windows.net/"
+		},
+		"ls_onpremise_adventureworks_dw_properties_typeProperties_server": {
+			"value": "LAPTOP-E9T37CGJ\\SQLEXPRESS"
+		},
+		"ls_onpremise_adventureworks_dw_properties_typeProperties_database": {
+			"value": "AdventureWorksDW2022"
+		},
+		"ls_onpremise_adventureworks_dw_properties_typeProperties_userName": {
+			"value": "azure_user"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
