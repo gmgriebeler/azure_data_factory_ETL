@@ -1,0 +1,9 @@
+{
+	"name": "adf-adventurewrks-prd",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "aad36cfc-5e46-4d49-ae4d-9afedd12c9ab",
+		"tenantId": "3ded8b1b-070d-4629-82e4-c0b019f46057"
+	}
+}

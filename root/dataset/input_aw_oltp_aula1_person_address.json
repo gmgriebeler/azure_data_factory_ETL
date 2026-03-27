@@ -1,0 +1,35 @@
+{
+	"name": "input_aw_oltp_aula1_person_address",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AD_lakehouse_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OLTP/aula_1"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "CountryRegionCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "Person",
+			"table": "Address"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

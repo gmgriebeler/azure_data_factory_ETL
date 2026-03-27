@@ -1,0 +1,6 @@
+{
+	"name": "windows-gabriel",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

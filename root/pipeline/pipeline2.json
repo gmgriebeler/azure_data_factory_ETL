@@ -1,0 +1,127 @@
+{
+	"name": "pipeline2",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_table",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "input_aw_oltp",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.p_SchemaName",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.p_TableName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "output_aw_oltp",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder": "automatic_load",
+							"file_name": {
+								"value": "@concat(pipeline().parameters.p_SchemaName,'_',pipeline().parameters.p_TableName)",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "input_aw_oltp",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.p_SchemaName",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.p_TableName",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"exists"
+					]
+				}
+			}
+		],
+		"parameters": {
+			"p_SchemaName": {
+				"type": "string"
+			},
+			"p_TableName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Adventure Works OLTP"
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-03-27T15:58:52Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

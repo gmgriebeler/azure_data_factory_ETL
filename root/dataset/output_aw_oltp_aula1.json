@@ -1,0 +1,25 @@
+{
+	"name": "output_aw_oltp_aula1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adls_landing_zone",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "OLTP/aula_1"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "humanresources_department.parquet",
+				"folderPath": "aula1",
+				"fileSystem": "landing-zone"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
