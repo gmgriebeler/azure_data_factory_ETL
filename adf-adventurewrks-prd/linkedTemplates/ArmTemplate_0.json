@@ -311,7 +311,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "human_resource_department.parquet",
+						"fileName": "human_resources_department.parquet",
 						"folderPath": "AdventureWorks/full_load",
 						"fileSystem": "final-project-landing-zone"
 					},
