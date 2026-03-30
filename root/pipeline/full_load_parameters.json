@@ -1,5 +1,5 @@
 {
-	"name": "full_load_old",
+	"name": "full_load_parameters",
 	"properties": {
 		"activities": [
 			{
@@ -42,13 +42,21 @@
 				"inputs": [
 					{
 						"referenceName": "AW_OLTP_FinalProject",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "HumanResources",
+							"table": "EmployeeDepartmentHistory"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ouptut_final_project_AdventureWorks_OLTP",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "HumanResources",
+							"table": "EmployeeDepartmentHistory"
+						}
 					}
 				]
 			}

@@ -1,9 +1,17 @@
 {
-	"name": "ouptut_human_resource_department",
+	"name": "ouptut_final_project_AdventureWorks_OLTP",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adls_landing_zone",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			}
 		},
 		"folder": {
 			"name": "AW_OLTP_FinalProject"
@@ -13,7 +21,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "human_resources_department.parquet",
+				"fileName": {
+					"value": "@concat(dataset().schema, '_', dataset().table, '.parquet')",
+					"type": "Expression"
+				},
 				"folderPath": "AdventureWorks/full_load",
 				"fileSystem": "final-project-landing-zone"
 			},

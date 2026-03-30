@@ -5,6 +5,14 @@
 			"referenceName": "AD_lakehouse_sqldb",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "AW_OLTP_FinalProject"
 		},
@@ -12,8 +20,14 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "HumanResources",
-			"table": "Department"
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
 		}
 	}
 }

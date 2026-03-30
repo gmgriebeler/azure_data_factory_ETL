@@ -1,9 +1,9 @@
 {
-	"name": "full_load_old",
+	"name": "full_load_pipeline_parameters",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "extraction",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -42,17 +42,45 @@
 				"inputs": [
 					{
 						"referenceName": "AW_OLTP_FinalProject",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.schema_pipeline",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.table_pipeline",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ouptut_final_project_AdventureWorks_OLTP",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.schema_pipeline",
+								"type": "Expression"
+							},
+							"table": {
+								"value": "@pipeline().parameters.table_pipeline",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"schema_pipeline": {
+				"type": "string"
+			},
+			"table_pipeline": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "Final_Project/aula_1"
 		},
