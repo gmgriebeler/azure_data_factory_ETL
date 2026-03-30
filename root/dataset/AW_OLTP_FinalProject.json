@@ -1,0 +1,15 @@
+{
+	"name": "AW_OLTP_FinalProject",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AD_lakehouse_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "AW_OLTP_FinalProject"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}

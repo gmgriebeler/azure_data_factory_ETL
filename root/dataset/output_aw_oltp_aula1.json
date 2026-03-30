@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "OLTP/aula_1"
+			"name": "aulas_adf/OLTP/aula_1"
 		},
 		"annotations": [],
 		"type": "Parquet",

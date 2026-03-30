@@ -15,7 +15,7 @@
 			}
 		},
 		"folder": {
-			"name": "OLTP"
+			"name": "aulas_adf/OLTP"
 		},
 		"annotations": [],
 		"type": "Parquet",

@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "DW"
+			"name": "aulas_adf/DW"
 		},
 		"annotations": [],
 		"type": "SqlServerTable",

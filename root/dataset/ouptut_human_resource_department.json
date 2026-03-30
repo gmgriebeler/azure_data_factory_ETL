@@ -1,25 +1,24 @@
 {
-	"name": "output_aw_oltp_aula1_person_address",
+	"name": "ouptut_human_resource_department",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adls_landing_zone",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "aulas_adf/OLTP/aula_1"
+			"name": "AW_OLTP_FinalProject"
 		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "person_address.parquet",
-				"folderPath": "aula1",
-				"fileSystem": "landing-zone"
+				"fileName": "human_resource_department.parquet",
+				"folderPath": "AdventureWorks/full_load",
+				"fileSystem": "final-project-landing-zone"
 			},
 			"compressionCodec": "snappy"
 		},
 		"schema": []
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
