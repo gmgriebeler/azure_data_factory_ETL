@@ -1,0 +1,20 @@
+{
+	"name": "final_project_input_w_query_azure_sql",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AD_lakehouse_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"query": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "AW_OLTP_FinalProject/aula_3"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}

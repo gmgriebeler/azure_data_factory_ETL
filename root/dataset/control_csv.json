@@ -1,0 +1,56 @@
+{
+	"name": "control_csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adls_landing_zone",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "AW_OLTP_FinalProject/aula_3"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "metadata.csv",
+				"folderPath": "AdventureWorks",
+				"fileSystem": "control"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Id",
+				"type": "String"
+			},
+			{
+				"name": "active",
+				"type": "String"
+			},
+			{
+				"name": "source_schema",
+				"type": "String"
+			},
+			{
+				"name": "source_table",
+				"type": "String"
+			},
+			{
+				"name": "query",
+				"type": "String"
+			},
+			{
+				"name": "folder",
+				"type": "String"
+			},
+			{
+				"name": "filename",
+				"type": "String"
+			}
+		]
+	}
+}
