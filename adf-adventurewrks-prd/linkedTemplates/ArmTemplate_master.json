@@ -57,15 +57,15 @@
 		},
 		"final_project_azure_sql_control_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "sqldb-study-lakehouse-server.database.windows.net"
+			"defaultValue": "sqldb-study-warehouse-server.database.windows.net"
 		},
 		"final_project_azure_sql_control_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "AdventureWorks2022"
+			"defaultValue": "final_project_control"
 		},
 		"final_project_azure_sql_control_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "APRENDER_DADOS_READ"
+			"defaultValue": "serveradmin"
 		},
 		"ls_onpremise_adventureworks_dw_properties_typeProperties_server": {
 			"type": "string",

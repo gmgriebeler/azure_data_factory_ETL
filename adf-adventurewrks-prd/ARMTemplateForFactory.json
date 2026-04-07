@@ -57,15 +57,15 @@
 		},
 		"final_project_azure_sql_control_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "sqldb-study-lakehouse-server.database.windows.net"
+			"defaultValue": "sqldb-study-warehouse-server.database.windows.net"
 		},
 		"final_project_azure_sql_control_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "AdventureWorks2022"
+			"defaultValue": "final_project_control"
 		},
 		"final_project_azure_sql_control_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "APRENDER_DADOS_READ"
+			"defaultValue": "serveradmin"
 		},
 		"ls_onpremise_adventureworks_dw_properties_typeProperties_server": {
 			"type": "string",
@@ -838,6 +838,92 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
+								"activity": "filter_active_tables",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('filter_active_tables').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "ingestion",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "@item().query",
+												"type": "Expression"
+											},
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "final_project_input_w_query_azure_sql",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "final_project_output_folder_filename",
+											"type": "DatasetReference",
+											"parameters": {
+												"folder": {
+													"value": "@item().folder",
+													"type": "Expression"
+												},
+												"filename": {
+													"value": "@item().file_name",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "filter_active_tables",
+						"type": "Filter",
+						"dependsOn": [
+							{
 								"activity": "read_control_table",
 								"dependencyConditions": [
 									"Succeeded"
@@ -850,87 +936,10 @@
 								"value": "@activity('read_control_table').output.value",
 								"type": "Expression"
 							},
-							"activities": [
-								{
-									"name": "if active",
-									"type": "IfCondition",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"expression": {
-											"value": "@item().active",
-											"type": "Expression"
-										},
-										"ifTrueActivities": [
-											{
-												"name": "ingestion_copy1",
-												"type": "Copy",
-												"dependsOn": [],
-												"policy": {
-													"timeout": "0.12:00:00",
-													"retry": 0,
-													"retryIntervalInSeconds": 30,
-													"secureOutput": false,
-													"secureInput": false
-												},
-												"userProperties": [],
-												"typeProperties": {
-													"source": {
-														"type": "AzureSqlSource",
-														"sqlReaderQuery": {
-															"value": "@item().query",
-															"type": "Expression"
-														},
-														"queryTimeout": "02:00:00",
-														"partitionOption": "None"
-													},
-													"sink": {
-														"type": "ParquetSink",
-														"storeSettings": {
-															"type": "AzureBlobFSWriteSettings"
-														},
-														"formatSettings": {
-															"type": "ParquetWriteSettings"
-														}
-													},
-													"enableStaging": false,
-													"translator": {
-														"type": "TabularTranslator",
-														"typeConversion": true,
-														"typeConversionSettings": {
-															"allowDataTruncation": true,
-															"treatBooleanAsNumber": false
-														}
-													}
-												},
-												"inputs": [
-													{
-														"referenceName": "final_project_input_w_query_azure_sql",
-														"type": "DatasetReference",
-														"parameters": {}
-													}
-												],
-												"outputs": [
-													{
-														"referenceName": "final_project_output_folder_filename",
-														"type": "DatasetReference",
-														"parameters": {
-															"folder": {
-																"value": "@item().folder",
-																"type": "Expression"
-															},
-															"filename": {
-																"value": "@item().file_name",
-																"type": "Expression"
-															}
-														}
-													}
-												]
-											}
-										]
-									}
-								}
-							]
+							"condition": {
+								"value": "@item().active",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -1760,6 +1769,74 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline4')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "final_project_input_w_query_azure_sql",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "final_project_output_control",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Final_Project/aula_4"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/final_project_input_w_query_azure_sql')]",
+				"[concat(variables('factoryId'), '/datasets/final_project_output_control')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AW_OLTP_FinalProject')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1859,7 +1936,31 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/final_project_ingestion_control_table')]",
+			"name": "[concat(parameters('factoryName'), '/final_project_input_w_query_azure_sql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AD_lakehouse_sqldb",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "AW_OLTP_FinalProject/aula_3"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "control_ingestion"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AD_lakehouse_sqldb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/final_project_output_control')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1910,30 +2011,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/final_project_azure_sql_control')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/final_project_input_w_query_azure_sql')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AD_lakehouse_sqldb",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "AW_OLTP_FinalProject/aula_3"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "HumanResources",
-					"table": "Department"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AD_lakehouse_sqldb')]"
 			]
 		},
 		{
