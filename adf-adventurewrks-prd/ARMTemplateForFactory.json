@@ -526,6 +526,260 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/full_load_old')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AW_OLTP_FinalProject",
+								"type": "DatasetReference",
+								"parameters": {
+									"schema": "Person",
+									"table": "Person"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ouptut_final_project_AdventureWorks_OLTP",
+								"type": "DatasetReference",
+								"parameters": {
+									"schema": "Person",
+									"table": "Person"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Final_Project/aula_2"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AW_OLTP_FinalProject')]",
+				"[concat(variables('factoryId'), '/datasets/ouptut_final_project_AdventureWorks_OLTP')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/full_load_parameters')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AW_OLTP_FinalProject",
+								"type": "DatasetReference",
+								"parameters": {
+									"schema": "HumanResources",
+									"table": "EmployeeDepartmentHistory"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ouptut_final_project_AdventureWorks_OLTP",
+								"type": "DatasetReference",
+								"parameters": {
+									"schema": "HumanResources",
+									"table": "EmployeeDepartmentHistory"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Final_Project/aula_2"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AW_OLTP_FinalProject')]",
+				"[concat(variables('factoryId'), '/datasets/ouptut_final_project_AdventureWorks_OLTP')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/full_load_pipeline_parameters')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "extraction",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AW_OLTP_FinalProject",
+								"type": "DatasetReference",
+								"parameters": {
+									"schema": {
+										"value": "@pipeline().parameters.schema_pipeline",
+										"type": "Expression"
+									},
+									"table": {
+										"value": "@pipeline().parameters.table_pipeline",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ouptut_final_project_AdventureWorks_OLTP",
+								"type": "DatasetReference",
+								"parameters": {
+									"schema": {
+										"value": "@pipeline().parameters.schema_pipeline",
+										"type": "Expression"
+									},
+									"table": {
+										"value": "@pipeline().parameters.table_pipeline",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"schema_pipeline": {
+						"type": "string"
+					},
+					"table_pipeline": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "Final_Project/aula_2"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AW_OLTP_FinalProject')]",
+				"[concat(variables('factoryId'), '/datasets/ouptut_final_project_AdventureWorks_OLTP')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1204,8 +1458,8 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
-						"type": "Copy",
+						"name": "read_control_table",
+						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -1217,56 +1471,123 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "AzureSqlSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "ParquetSink",
+								"type": "DelimitedTextSource",
 								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
-									"type": "ParquetWriteSettings"
+									"type": "DelimitedTextReadSettings"
 								}
 							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "AW_OLTP_FinalProject",
+							"dataset": {
+								"referenceName": "control_csv",
 								"type": "DatasetReference",
 								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "read_control_table",
+								"dependencyConditions": [
+									"Succeeded"
+								]
 							}
 						],
-						"outputs": [
-							{
-								"referenceName": "ouptut_human_resource_department",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('read_control_table').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "ingestion",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "@item().query",
+												"type": "Expression"
+											},
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "final_project_input_w_query_azure_sql",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "final_project_output_folder_filename",
+											"type": "DatasetReference",
+											"parameters": {
+												"folder": {
+													"value": "@item().folder",
+													"type": "Expression"
+												},
+												"filename": {
+													"value": "@item().filename",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
 				"folder": {
-					"name": "Final_Project"
+					"name": "Final_Project/aula_3"
 				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/AW_OLTP_FinalProject')]",
-				"[concat(variables('factoryId'), '/datasets/ouptut_human_resource_department')]"
+				"[concat(variables('factoryId'), '/datasets/control_csv')]",
+				"[concat(variables('factoryId'), '/datasets/final_project_input_w_query_azure_sql')]",
+				"[concat(variables('factoryId'), '/datasets/final_project_output_folder_filename')]"
 			]
 		},
 		{
@@ -1278,8 +1599,107 @@
 					"referenceName": "AD_lakehouse_sqldb",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"schema": {
+						"type": "string"
+					},
+					"table": {
+						"type": "string"
+					}
+				},
 				"folder": {
 					"name": "AW_OLTP_FinalProject"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().schema",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AD_lakehouse_sqldb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/control_csv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "adls_landing_zone",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "AW_OLTP_FinalProject/aula_3"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "metadata.csv",
+						"folderPath": "AdventureWorks",
+						"fileSystem": "control"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Id",
+						"type": "String"
+					},
+					{
+						"name": "active",
+						"type": "String"
+					},
+					{
+						"name": "source_schema",
+						"type": "String"
+					},
+					{
+						"name": "source_table",
+						"type": "String"
+					},
+					{
+						"name": "query",
+						"type": "String"
+					},
+					{
+						"name": "folder",
+						"type": "String"
+					},
+					{
+						"name": "filename",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/adls_landing_zone')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/final_project_input_w_query_azure_sql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AD_lakehouse_sqldb",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "AW_OLTP_FinalProject/aula_3"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -1291,6 +1711,49 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AD_lakehouse_sqldb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/final_project_output_folder_filename')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "adls_landing_zone",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"folder": {
+						"type": "string"
+					},
+					"filename": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "AW_OLTP_FinalProject/aula_3"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@concat('AdventureWorks/full_load/', dataset().folder, '/')",
+							"type": "Expression"
+						},
+						"fileSystem": "final-project-landing-zone"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/adls_landing_zone')]"
 			]
 		},
 		{
@@ -1449,13 +1912,21 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ouptut_human_resource_department')]",
+			"name": "[concat(parameters('factoryName'), '/ouptut_final_project_AdventureWorks_OLTP')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "adls_landing_zone",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"schema": {
+						"type": "string"
+					},
+					"table": {
+						"type": "string"
+					}
 				},
 				"folder": {
 					"name": "AW_OLTP_FinalProject"
@@ -1465,7 +1936,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "human_resources_department.parquet",
+						"fileName": {
+							"value": "@concat(dataset().schema, '_', dataset().table, '.parquet')",
+							"type": "Expression"
+						},
 						"folderPath": "AdventureWorks/full_load",
 						"fileSystem": "final-project-landing-zone"
 					},
