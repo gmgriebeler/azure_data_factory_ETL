@@ -44,70 +44,37 @@
 						"value": "@activity('filter_active_tables').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
-							"name": "ingestion",
-							"type": "Copy",
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
 								"secureInput": false
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"sqlReaderQuery": {
+								"pipeline": {
+									"referenceName": "db_to_lake_ingestion",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"query": {
 										"value": "@item().query",
 										"type": "Expression"
 									},
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
-								},
-								"sink": {
-									"type": "ParquetSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
+									"folder": {
+										"value": "@item().folder",
+										"type": "Expression"
 									},
-									"formatSettings": {
-										"type": "ParquetWriteSettings"
-									}
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
+									"file_name": {
+										"value": "@item().file_name",
+										"type": "Expression"
 									}
 								}
-							},
-							"inputs": [
-								{
-									"referenceName": "final_project_input_w_query_azure_sql",
-									"type": "DatasetReference"
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "final_project_output_folder_filename",
-									"type": "DatasetReference",
-									"parameters": {
-										"folder": {
-											"value": "@item().folder",
-											"type": "Expression"
-										},
-										"filename": {
-											"value": "@item().file_name",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+							}
 						}
 					]
 				}
