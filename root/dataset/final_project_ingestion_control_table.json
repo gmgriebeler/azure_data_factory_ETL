@@ -1,0 +1,49 @@
+{
+	"name": "final_project_ingestion_control_table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "final_project_azure_sql_control",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "AW_OLTP_FinalProject/aula_4"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "active",
+				"type": "bit"
+			},
+			{
+				"name": "source_schema",
+				"type": "nvarchar"
+			},
+			{
+				"name": "source_table",
+				"type": "nvarchar"
+			},
+			{
+				"name": "query",
+				"type": "nvarchar"
+			},
+			{
+				"name": "folder",
+				"type": "nvarchar"
+			},
+			{
+				"name": "file_name",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "control_ingestion"
+		}
+	}
+}
