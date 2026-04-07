@@ -14,6 +14,9 @@
 		"adls_landing_zone_accountKey": {
 			"value": ""
 		},
+		"final_project_azure_sql_control_password": {
+			"value": ""
+		},
 		"ls_onpremise_adventureworks_dw_password": {
 			"value": ""
 		},
@@ -37,6 +40,15 @@
 		},
 		"adls_landing_zone_properties_typeProperties_url": {
 			"value": "https://adlsadventurewrksprd.dfs.core.windows.net/"
+		},
+		"final_project_azure_sql_control_properties_typeProperties_server": {
+			"value": "sqldb-study-lakehouse-server.database.windows.net"
+		},
+		"final_project_azure_sql_control_properties_typeProperties_database": {
+			"value": "AdventureWorks2022"
+		},
+		"final_project_azure_sql_control_properties_typeProperties_userName": {
+			"value": "APRENDER_DADOS_READ"
 		},
 		"ls_onpremise_adventureworks_dw_properties_typeProperties_server": {
 			"value": "LAPTOP-E9T37CGJ\\SQLEXPRESS"
