@@ -12,8 +12,8 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "HumanResources",
-			"table": "Department"
+			"schema": "dbo",
+			"table": "control_ingestion"
 		}
 	}
 }

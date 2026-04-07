@@ -1,5 +1,5 @@
 {
-	"name": "final_project_ingestion_control_table",
+	"name": "final_project_output_control",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "final_project_azure_sql_control",
