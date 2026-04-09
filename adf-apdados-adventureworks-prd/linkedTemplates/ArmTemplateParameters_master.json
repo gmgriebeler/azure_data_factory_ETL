@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-apdados-adventureworks-prd"
+		},
+		"ls_AdventureWorks_ADLS_accountKey": {
+			"value": ""
+		},
+		"ls_aprenderdados__lakehouse_adventureworks_password": {
+			"value": ""
+		},
+		"ls_AdventureWorks_ADLS_properties_typeProperties_url": {
+			"value": "https://apdadosadvwrkstorageacc.dfs.core.windows.net/"
+		},
+		"ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_server": {
+			"value": "sqldb-study-lakehouse-server.database.windows.net"
+		},
+		"ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_database": {
+			"value": "AdventureWorks2022"
+		},
+		"ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_userName": {
+			"value": "APRENDER_DADOS_READ"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
