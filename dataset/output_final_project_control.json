@@ -1,0 +1,24 @@
+{
+	"name": "output_final_project_control",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_AdventureWorks_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "control_ingestion"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "control_table",
+				"fileSystem": "control"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

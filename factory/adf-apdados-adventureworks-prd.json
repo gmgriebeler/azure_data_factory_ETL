@@ -1,0 +1,9 @@
+{
+	"name": "adf-apdados-adventureworks-prd",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "be7a0fef-f739-4fd9-8dc3-f86e937d5353",
+		"tenantId": "86481a02-018d-4945-9da5-ef95842fb947"
+	}
+}

@@ -1,0 +1,36 @@
+{
+	"name": "output_final_ingestion",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_AdventureWorks_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"folder": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file_name",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('AdventureWorks/full_load/', dataset().folder, '/')",
+					"type": "Expression"
+				},
+				"fileSystem": "landing-zone"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
