@@ -11,13 +11,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_AdventureWorks_ADLS'"
 		},
-		"ls_aprenderdados__lakehouse_adventureworks_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'ls_aprenderdados__lakehouse_adventureworks'"
-		},
 		"ls_AdventureWorks_ADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://apdadosadvwrkstorageacc.dfs.core.windows.net/"
+		},
+		"ls_kv_adventureworks_prd_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-apdados-advworks-prd.vault.azure.net/"
 		},
 		"ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_server": {
 			"type": "string",
@@ -54,68 +54,17 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ls_aprenderdados__lakehouse_adventureworks')]",
+			"name": "[concat(parameters('factoryName'), '/ls_kv_adventureworks_prd')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "AzureSqlDatabase",
+				"type": "AzureKeyVault",
 				"typeProperties": {
-					"server": "[parameters('ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_server')]",
-					"database": "[parameters('ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": false,
-					"authenticationType": "SQL",
-					"userName": "[parameters('ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('ls_aprenderdados__lakehouse_adventureworks_password')]"
-					}
+					"baseUrl": "[parameters('ls_kv_adventureworks_prd_properties_typeProperties_baseUrl')]"
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/input_final_ingestion')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_aprenderdados__lakehouse_adventureworks",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_aprenderdados__lakehouse_adventureworks')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/input_final_project_control')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_aprenderdados__lakehouse_adventureworks",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "control_ingestion"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "control_ingestion"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_aprenderdados__lakehouse_adventureworks')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/input_final_project_control_csv')]",
@@ -269,6 +218,76 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_AdventureWorks_ADLS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_aprenderdados__lakehouse_adventureworks')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_server')]",
+					"database": "[parameters('ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "ls_kv_adventureworks_prd",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "password-sql-database-adventureworks-read-user"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_kv_adventureworks_prd')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/input_final_ingestion')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_aprenderdados__lakehouse_adventureworks",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_aprenderdados__lakehouse_adventureworks')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/input_final_project_control')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_aprenderdados__lakehouse_adventureworks",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "control_ingestion"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "control_ingestion"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_aprenderdados__lakehouse_adventureworks')]"
 			]
 		},
 		{

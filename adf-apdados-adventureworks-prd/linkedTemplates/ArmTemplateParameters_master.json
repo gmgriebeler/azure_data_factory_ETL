@@ -8,9 +8,6 @@
 		"ls_AdventureWorks_ADLS_accountKey": {
 			"value": ""
 		},
-		"ls_aprenderdados__lakehouse_adventureworks_password": {
-			"value": ""
-		},
 		"ls_AdventureWorks_ADLS_properties_typeProperties_url": {
 			"value": "https://apdadosadvwrkstorageacc.dfs.core.windows.net/"
 		},
@@ -22,6 +19,9 @@
 		},
 		"ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_userName": {
 			"value": "APRENDER_DADOS_READ"
+		},
+		"ls_kv_adventureworks_prd_properties_typeProperties_baseUrl": {
+			"value": "https://kv-apdados-advworks-prd.vault.azure.net/"
 		},
 		"containerUri": {
 			"value": ""
