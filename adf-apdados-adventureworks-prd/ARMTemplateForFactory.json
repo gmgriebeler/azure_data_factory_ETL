@@ -30,6 +30,10 @@
 		"ls_kv_adventureworks_prd_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-apdados-advworks-prd.vault.azure.net/"
+		},
+		"ls_adventureworks_adb_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0409-131755-ggf5o49u"
 		}
 	},
 	"variables": {
@@ -577,6 +581,22 @@
 				"type": "AzureKeyVault",
 				"typeProperties": {
 					"baseUrl": "[parameters('ls_kv_adventureworks_prd_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_adventureworks_adb')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-7405616648807858.18.azuredatabricks.net",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/abf45bab-cfbe-4fb3-be0b-f34c1509a6a4/resourceGroups/AdventureWorks-PRD/providers/Microsoft.Databricks/workspaces/adb-adventureworks-prd",
+					"existingClusterId": "[parameters('ls_adventureworks_adb_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []

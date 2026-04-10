@@ -23,6 +23,9 @@
 		"ls_kv_adventureworks_prd_properties_typeProperties_baseUrl": {
 			"value": "https://kv-apdados-advworks-prd.vault.azure.net/"
 		},
+		"ls_adventureworks_adb_properties_typeProperties_existingClusterId": {
+			"value": "0409-131755-ggf5o49u"
+		},
 		"containerUri": {
 			"value": ""
 		},
