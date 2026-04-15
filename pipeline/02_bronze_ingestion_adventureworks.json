@@ -1,0 +1,31 @@
+{
+	"name": "02_bronze_ingestion_adventureworks",
+	"properties": {
+		"activities": [
+			{
+				"name": "bronze_layer_ingestion",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/AdventureWorks/bronze_ingestion/bronze_ingestion_full"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_adventureworks_adb",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "Projeto"
+		},
+		"annotations": []
+	}
+}
