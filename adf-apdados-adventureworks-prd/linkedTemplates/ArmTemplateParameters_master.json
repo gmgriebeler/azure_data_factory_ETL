@@ -11,6 +11,9 @@
 		"ls_AdventureWorks_ADLS_properties_typeProperties_url": {
 			"value": "https://apdadosadvwrkstorageacc.dfs.core.windows.net/"
 		},
+		"ls_adventureworks_adb_properties_typeProperties_existingClusterId": {
+			"value": "0415-134140-20j7ec9u"
+		},
 		"ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_server": {
 			"value": "sqldb-study-lakehouse-server.database.windows.net"
 		},
@@ -22,9 +25,6 @@
 		},
 		"ls_kv_adventureworks_prd_properties_typeProperties_baseUrl": {
 			"value": "https://kv-apdados-advworks-prd.vault.azure.net/"
-		},
-		"ls_adventureworks_adb_properties_typeProperties_existingClusterId": {
-			"value": "0409-131755-ggf5o49u"
 		},
 		"containerUri": {
 			"value": ""

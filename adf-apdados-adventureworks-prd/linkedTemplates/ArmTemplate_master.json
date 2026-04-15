@@ -15,6 +15,10 @@
 			"type": "string",
 			"defaultValue": "https://apdadosadvwrkstorageacc.dfs.core.windows.net/"
 		},
+		"ls_adventureworks_adb_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0415-134140-20j7ec9u"
+		},
 		"ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "sqldb-study-lakehouse-server.database.windows.net"
@@ -30,10 +34,6 @@
 		"ls_kv_adventureworks_prd_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-apdados-advworks-prd.vault.azure.net/"
-		},
-		"ls_adventureworks_adb_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "0409-131755-ggf5o49u"
 		},
 		"containerUri": {
 			"type": "string",
@@ -68,11 +68,11 @@
 					"ls_AdventureWorks_ADLS_properties_typeProperties_url": {
 						"value": "[parameters('ls_AdventureWorks_ADLS_properties_typeProperties_url')]"
 					},
-					"ls_kv_adventureworks_prd_properties_typeProperties_baseUrl": {
-						"value": "[parameters('ls_kv_adventureworks_prd_properties_typeProperties_baseUrl')]"
-					},
 					"ls_adventureworks_adb_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('ls_adventureworks_adb_properties_typeProperties_existingClusterId')]"
+					},
+					"ls_kv_adventureworks_prd_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_kv_adventureworks_prd_properties_typeProperties_baseUrl')]"
 					},
 					"ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_server": {
 						"value": "[parameters('ls_aprenderdados__lakehouse_adventureworks_properties_typeProperties_server')]"
